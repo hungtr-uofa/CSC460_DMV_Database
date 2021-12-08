@@ -49,7 +49,8 @@ table mvd_job {
   j_id integer [pk]
   jobName varchar2(32) [not null]
   salary integer [not null]
-  perm_id integer [ref: - mvd_permission.perm_id]
+  perm_id integer [ref: > mvd_permission.perm_id]
+  dep_id integer [ref: > mvd_department.dep_id]
 }
 
 table mvd_permission {

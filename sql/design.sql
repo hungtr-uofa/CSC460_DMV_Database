@@ -37,7 +37,8 @@ CREATE TABLE "mvd_job" (
   "j_id" integer PRIMARY KEY,
   "jobName" varchar2(32) NOT NULL,
   "salary" integer NOT NULL,
-  "perm_id" integer
+  "perm_id" integer,
+  "dep_id" integer
 );
 
 CREATE TABLE "mvd_permission" (
@@ -99,6 +100,8 @@ ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("supervisor_e_id") REFERENCES "mvd_e
 ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("i_id") REFERENCES "mvd_id" ("i_id");
 
 ALTER TABLE "mvd_job" ADD FOREIGN KEY ("perm_id") REFERENCES "mvd_permission" ("perm_id");
+
+ALTER TABLE "mvd_job" ADD FOREIGN KEY ("dep_id") REFERENCES "mvd_department" ("dep_id");
 
 ALTER TABLE "mvd_productConstraints" ADD FOREIGN KEY ("p_id") REFERENCES "mvd_product" ("p_id");
 
