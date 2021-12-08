@@ -68,7 +68,7 @@ INTO "mvd_product" VALUES (4, 'State ID Registration', 12, 7305, 1)   -- $12, 20
 -- constraints
 INTO "mvd_productConstraints" VALUES (0, 4, 0) -- boot: ID:0, Dept:HR, Perm: admin
 -- boot appointment
-INTO "mvd_appointment" VALUES(0, 0, 0, 0, DEFAULT)
+INTO "mvd_appointment" VALUES(0, 0, 0, 0, TIMESTAMP '1800-01-01 23:59:59.10')
 INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DEFAULT)
 INTO "mvd_employee" VALUES (0, 0, 0, null, 0, DEFAULT)
 INTO "mvd_id" VALUES (0,0, DEFAULT)
