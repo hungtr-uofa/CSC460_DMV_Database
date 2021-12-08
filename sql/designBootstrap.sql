@@ -9,10 +9,10 @@
 
 --- Inject time/date defaults (impossible in dbml)
 -- Default for appointment date is time now
-ALTER TABLE "mvd_appointment" MODIFY appointmentDate
+ALTER TABLE "mvd_appointment" MODIFY "appointmentDate" 
 DEFAULT SYS_EXTRACT_UTC(SYSTIMESTAMP);
 
-ALTER TABLE "mvd_okappointment" MODIFY processedDate
+ALTER TABLE "mvd_okappointment" MODIFY "processedDate"
 DEFAULT (SELECT appt.appointmentDate FROM
  "mvd_okappointment" as okappt INNER JOIN "mvd_appointment" as appt
  ON okappt.ap_id=appt.ap_id

@@ -87,7 +87,7 @@ CREATE TABLE "mvd_okappointment" (
   "ap_id" integer,
   "processEmp_e_id" integer,
   "i_id" integer,
-  "processedDate" date DEFAULT null
+  "processedDate" date
 );
 
 ALTER TABLE "mvd_newAssociate" ADD FOREIGN KEY ("identity_id") REFERENCES "mvd_web2identity" ("identity_id");
@@ -145,9 +145,9 @@ COMMENT ON COLUMN "mvd_appointment"."customer_newA_id" IS 'newA_id of potential 
 
 COMMENT ON COLUMN "mvd_appointment"."repEmployee_e_id" IS 'e_id of the representative';
 
-COMMENT ON COLUMN "mvd_appointment"."appointmentDate" IS 'when mvd_appointment was scheduled to be';
+COMMENT ON COLUMN "mvd_appointment"."appointmentDate" IS 'when mvd_appointment was scheduled to be, default: timenow';
 
 COMMENT ON COLUMN "mvd_okappointment"."processEmp_e_id" IS 'e_id of a processor';
 
-COMMENT ON COLUMN "mvd_okappointment"."processedDate" IS 'when the appointment is processed, null is the same as appointmentDate';
+COMMENT ON COLUMN "mvd_okappointment"."processedDate" IS 'when the appointment is processed, default is the same as appointmentDate';
 

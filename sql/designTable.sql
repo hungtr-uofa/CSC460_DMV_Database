@@ -87,6 +87,6 @@ CREATE TABLE "mvd_okappointment" (
   "ap_id" integer,
   "processEmp_e_id" integer,
   "i_id" integer,
-  "processedDate" date DEFAULT null
+  "processedDate" date
 );
 
