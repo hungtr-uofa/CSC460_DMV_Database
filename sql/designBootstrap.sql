@@ -21,21 +21,21 @@ INSERT INTO "mvd_permission" VALUES
 --- Adding the records
 --- Department
 INSERT INTO "mvd_department" VALUES
-(0, "License"),
-(1, "Permit"),
-(2, "Vehicle Registration"),
-(3, "State ID"),
-(4, "Human Resource");
+(0, 'License'),
+(1, 'Permit'),
+(2, 'Vehicle Registration'),
+(3, 'State ID'),
+(4, 'Human Resource');
 
 --- The ultimate hiring person: the root
 -- with the root, we can employ others at will.
 
 -- make a root associate
 INSERT INTO "mvd_web2identity" VALUES
-(0, "root", "0");
+(0, 'root', '0');
 
 INSERT INTO "mvd_newAssociate" VALUES
-(0, "root", "root", 0);
+(0, 'root', 'root', 0);
 
 INSERT INTO "mvd_associate" VALUES
 (0, 0, null, null);
