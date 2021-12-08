@@ -98,11 +98,13 @@ ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("e_id") REFERENCES "mvd_employee" ("
 
 ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("i_id") REFERENCES "mvd_id" ("i_id");
 
+ALTER TABLE "mvd_job" ADD FOREIGN KEY ("perm_id") REFERENCES "mvd_permission" ("perm_id");
+
 ALTER TABLE "mvd_productConstraints" ADD FOREIGN KEY ("p_id") REFERENCES "mvd_product" ("p_id");
 
 ALTER TABLE "mvd_productConstraints" ADD FOREIGN KEY ("dep_id") REFERENCES "mvd_department" ("dep_id");
 
-ALTER TABLE "mvd_permission" ADD FOREIGN KEY ("perm_id") REFERENCES "mvd_productConstraints" ("perm_id");
+ALTER TABLE "mvd_productConstraints" ADD FOREIGN KEY ("perm_id") REFERENCES "mvd_permission" ("perm_id");
 
 ALTER TABLE "mvd_id" ADD FOREIGN KEY ("apOK_id") REFERENCES "mvd_okappointment" ("apOK_id");
 
