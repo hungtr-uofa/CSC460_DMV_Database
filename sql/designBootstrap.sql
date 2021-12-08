@@ -94,4 +94,5 @@ SELECT * FROM dual;
 
 
 -- job listing
-INSERT INTO "mvd_job" VALUES (0, 'root', 0, 0, 4); -- id:0, jobname:root, salary:0, perm_id:0 (admin/root), dep_id: 4(HR)
+-- id:0, jobname:root, salary:0, perm_id:0 (admin/root), dep_id: 4(HR)
+INSERT INTO "mvd_job" VALUES (0, 'root', 0, 0, 4); 
