@@ -52,8 +52,8 @@ table job {
 
 table permission {
   perm_id integer [pk]
-  canRepresent number(1) [not null, default: 0]
-  canProcess number(1) [not null, default: 0]
+  canRepresent number(1) [default: 0, not null]
+  canProcess number(1) [default: 0, not null]
 }
 
 // products
