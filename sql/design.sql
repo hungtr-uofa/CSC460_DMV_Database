@@ -42,8 +42,8 @@ CREATE TABLE "job" (
 
 CREATE TABLE "permission" (
   "perm_id" integer PRIMARY KEY,
-  "canRepresent" number(1) NOT NULL DEFAULT false,
-  "canProcess" number(1) NOT NULL DEFAULT false
+  "canRepresent" number(1) NOT NULL DEFAULT 0,
+  "canProcess" number(1) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE "product" (
