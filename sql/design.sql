@@ -28,9 +28,8 @@ CREATE TABLE "mvd_employee" (
   "j_id" integer,
   "a_id" integer,
   "supervisor_e_id" integer,
-  "isFounder" number(1) DEFAULT 0,
-  "adminRights" number(1) DEFAULT 0,
-  "i_id" integer
+  "i_id" integer,
+  "salaryIncrease" integer DEFAULT 0
 );
 
 CREATE TABLE "mvd_job" (
@@ -44,7 +43,9 @@ CREATE TABLE "mvd_job" (
 CREATE TABLE "mvd_permission" (
   "perm_id" integer PRIMARY KEY,
   "canRepresent" number(1) DEFAULT 0,
-  "canProcess" number(1) DEFAULT 0
+  "canProcess" number(1) DEFAULT 0,
+  "adminRights" number(1) DEFAULT 0,
+  "isFounder" number(1) DEFAULT 0
 );
 
 CREATE TABLE "mvd_product" (
@@ -124,7 +125,7 @@ ALTER TABLE "mvd_okappointment" ADD FOREIGN KEY ("ap_id") REFERENCES "mvd_appoin
 
 COMMENT ON COLUMN "mvd_associate"."address" IS 'might want to create an index for addresses in the future';
 
-COMMENT ON COLUMN "mvd_employee"."adminRights" IS 'bypasses everything, even the product constraints';
+COMMENT ON COLUMN "mvd_permission"."adminRights" IS 'bypasses everything, even the product constraints';
 
 COMMENT ON COLUMN "mvd_productConstraints"."maxPerPerson" IS 'if null, infinity. This is useful for license, permit, id limited to 1 person';
 

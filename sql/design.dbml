@@ -37,12 +37,11 @@ table mvd_department {
 
 table mvd_employee {
   e_id integer [pk]
-  j_id integer [ref: - mvd_job.j_id]
+  j_id integer [ref: > mvd_job.j_id]
   a_id integer [ref: > mvd_associate.a_id]
   supervisor_e_id integer [ref: > mvd_employee.e_id]
-  isFounder number(1) [default: 0]
-  adminRights number(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
   i_id integer [ref: - mvd_id.i_id]
+  salaryIncrease integer [default: 0]
 }
 
 table mvd_job {
@@ -57,6 +56,8 @@ table mvd_permission {
   perm_id integer [pk]
   canRepresent number(1) [default: 0]
   canProcess number(1) [default: 0]
+  adminRights number(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
+  isFounder number(1) [default: 0]
 }
 
 // products
