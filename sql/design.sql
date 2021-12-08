@@ -1,26 +1,26 @@
 CREATE TABLE "web2identity" (
   "identity_id" integer PRIMARY KEY,
-  "emailAddress" varchar(40) NOT NULL,
-  "phoneNumber" varchar(15) NOT NULL
+  "emailAddress" varchar2(40) NOT NULL,
+  "phoneNumber" varchar2(15) NOT NULL
 );
 
 CREATE TABLE "newAssociate" (
   "newA_id" integer PRIMARY KEY,
-  "firstName" varchar(20) NOT NULL,
-  "lastName" varchar(20) NOT NULL,
+  "firstName" varchar2(20) NOT NULL,
+  "lastName" varchar2(20) NOT NULL,
   "identity_id" integer
 );
 
 CREATE TABLE "associate" (
   "a_id" integer PRIMARY KEY,
   "newA_id" integer,
-  "dateOfBirth" datetime,
-  "address" varchar(80)
+  "dateOfBirth" date,
+  "address" varchar2(80)
 );
 
 CREATE TABLE "department" (
   "dep_id" integer PRIMARY KEY,
-  "depName" varchar(80) NOT NULL
+  "depName" varchar2(80) NOT NULL
 );
 
 CREATE TABLE "employee" (
@@ -28,8 +28,8 @@ CREATE TABLE "employee" (
   "j_id" integer,
   "a_id" integer,
   "supervisor_e_id" integer,
-  "isFounder" integer(1) DEFAULT 0,
-  "adminRights" integer(1) DEFAULT 0,
+  "isFounder" number(1) DEFAULT 0,
+  "adminRights" number(1) DEFAULT 0,
   "i_id" integer
 );
 
@@ -42,13 +42,13 @@ CREATE TABLE "job" (
 
 CREATE TABLE "permission" (
   "perm_id" integer PRIMARY KEY,
-  "canRepresent" integer(1) NOT NULL DEFAULT false,
-  "canProcess" integer(1) NOT NULL DEFAULT false
+  "canRepresent" number(1) NOT NULL DEFAULT false,
+  "canProcess" number(1) NOT NULL DEFAULT false
 );
 
 CREATE TABLE "product" (
   "p_id" integer PRIMARY KEY,
-  "productName" varchar(40),
+  "productName" varchar2(40),
   "productPrice" integer,
   "productExpiry_days" integer
 );
@@ -64,7 +64,7 @@ CREATE TABLE "productConstraints" (
 CREATE TABLE "id" (
   "i_id" integer PRIMARY KEY,
   "apOK_id" integer,
-  "revoked" datetime DEFAULT NULL
+  "revoked" date DEFAULT NULL
 );
 
 CREATE TABLE "vehicleID" (
@@ -77,7 +77,7 @@ CREATE TABLE "appointment" (
   "customer_newA_id" integer,
   "repEmployee_e_id" integer,
   "p_id" integer,
-  "appointmentDate" datetime
+  "appointmentDate" date
 );
 
 CREATE TABLE "okAppointment" (

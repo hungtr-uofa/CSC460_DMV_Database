@@ -4,21 +4,21 @@
 // identities
 table web2identity {
   identity_id integer [pk]
-  emailAddress varchar(40) [not null]
-  phoneNumber varchar(15) [not null]
+  emailAddress varchar2(40) [not null]
+  phoneNumber varchar2(15) [not null]
 }
 
 table newAssociate {
   newA_id integer [pk]
-  firstName varchar(20) [not null]
-  lastName varchar(20) [not null]
+  firstName varchar2(20) [not null]
+  lastName varchar2(20) [not null]
   identity_id integer [ref: > web2identity.identity_id]
 }
 table associate {
   a_id integer [pk]
   newA_id integer [ref: < newAssociate.newA_id]
-  dateOfBirth datetime
-  address varchar(80) [note: 'might want to create an index for addresses in the future']
+  dateOfBirth date
+  address varchar2(80) [note: 'might want to create an index for addresses in the future']
 }
 
 tablegroup identity {
@@ -30,7 +30,7 @@ tablegroup identity {
 // enterprise
 table department {
   dep_id integer [pk]
-  depName varchar(80) [NOT NULL]
+  depName varchar2(80) [NOT NULL]
 }
 
 table employee {
@@ -38,8 +38,8 @@ table employee {
   j_id integer [ref: - job.j_id]
   a_id integer [ref: > associate.a_id]
   supervisor_e_id integer [ref: < employee.e_id]
-  isFounder integer(1) [default: 0]
-  adminRights integer(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
+  isFounder number(1) [default: 0]
+  adminRights number(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
   i_id integer [ref: - id.i_id]
 }
 
@@ -52,15 +52,15 @@ table job {
 
 table permission {
   perm_id integer [pk]
-  canRepresent integer(1) [not null, default: false]
-  canProcess integer(1) [not null, default: false]
+  canRepresent number(1) [not null, default: false]
+  canProcess number(1) [not null, default: false]
 }
 
 // products
 // record of all products
 table product {
   p_id integer [pk, ref: < productConstraints.p_id]
-  productName varchar(40)
+  productName varchar2(40)
   productPrice integer
   productExpiry_days integer
   
@@ -79,7 +79,7 @@ table productConstraints {
 table id {
   i_id integer [pk]
   apOK_id integer [ref: - okAppointment.apOK_id]
-  revoked datetime [default: NULL, note: 'if null, not revoked yet']
+  revoked date [default: NULL, note: 'if null, not revoked yet']
 }
 
 table vehicleID {
@@ -94,7 +94,7 @@ table appointment {
   customer_newA_id integer [ref: - newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
   repEmployee_e_id integer [ref: - employee.e_id, note: 'e_id of the representative']
   p_id integer [ref: - product.p_id]
-  appointmentDate datetime [note: 'when appointment was scheduled to be']
+  appointmentDate date [note: 'when appointment was scheduled to be']
 }
 
 table okAppointment {
