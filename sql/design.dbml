@@ -94,7 +94,7 @@ table appointment {
   customer_newA_id integer [ref: - newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
   repEmployee_e_id integer [ref: - employee.e_id, note: 'e_id of the representative']
   p_id integer [ref: - product.p_id]
-  appointegermentDate datetime [note: 'when appointegerment was scheduled to be']
+  appointmentDate datetime [note: 'when appointment was scheduled to be']
 }
 
 table okAppointment {
