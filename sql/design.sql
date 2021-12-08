@@ -1,13 +1,13 @@
 CREATE TABLE "web2identity" (
   "identity_id" integer PRIMARY KEY,
-  "emailAddress" varchar(20) NOT NULL,
-  "phoneNumber" varchar NOT NULL
+  "emailAddress" varchar(40) NOT NULL,
+  "phoneNumber" varchar(15) NOT NULL
 );
 
 CREATE TABLE "newAssociate" (
   "newA_id" integer PRIMARY KEY,
-  "firstName" varchar NOT NULL,
-  "lastName" varchar NOT NULL,
+  "firstName" varchar(20) NOT NULL,
+  "lastName" varchar(20) NOT NULL,
   "identity_id" integer
 );
 
@@ -15,12 +15,12 @@ CREATE TABLE "associate" (
   "a_id" integer PRIMARY KEY,
   "newA_id" integer,
   "dateOfBirth" datetime,
-  "address" varchar
+  "address" varchar(80)
 );
 
 CREATE TABLE "department" (
   "dep_id" integer PRIMARY KEY,
-  "depName" varchar NOT NULL
+  "depName" varchar(80) NOT NULL
 );
 
 CREATE TABLE "employee" (
@@ -48,7 +48,7 @@ CREATE TABLE "permission" (
 
 CREATE TABLE "product" (
   "p_id" integer PRIMARY KEY,
-  "productName" varchar,
+  "productName" varchar(40),
   "productPrice" integer,
   "productExpiry_days" integer
 );
@@ -116,6 +116,8 @@ ALTER TABLE "appointment" ADD FOREIGN KEY ("p_id") REFERENCES "product" ("p_id")
 
 ALTER TABLE "okAppointment" ADD FOREIGN KEY ("ap_id") REFERENCES "appointment" ("ap_id");
 
+
+COMMENT ON COLUMN "associate"."address" IS 'might want to create an index for addresses in the future';
 
 COMMENT ON COLUMN "employee"."adminRights" IS 'bypasses everything, even the product constraints';
 
