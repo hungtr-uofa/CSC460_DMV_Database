@@ -66,6 +66,9 @@ INSERT INTO "mvd_associate" VALUES
 -- we need to first set up appointment for it to be ok, though
 -- at the bootstrap step, we are not enforcing anything about
 -- the hiring permissions, so we could theoretically appoint ourselves?
+
+-- job listing
+INSERT INTO "mvd_job" VALUES (0, "root", 0, 0, 4) -- id:0, jobname:root, salary:0, perm_id:0 (admin/root), dep_id: 4(HR)
 INSERT ALL
 -- products
 INTO "mvd_product" VALUES (0, 'Admin Hiring', 0, 100000, null)    -- bootstrap
@@ -82,7 +85,7 @@ INTO "mvd_productConstraints" VALUES (0, 4, 0) -- boot: ID:0, Dept:HR, Perm: adm
 INTO "mvd_appointment" VALUES(0, 0, 0, 0, TIMESTAMP '1800-01-01 23:59:59.10')
 SELECT * FROM dual;
 
---- this line is weird
+--- okappointment
 INSERT INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DATE '1800-01-02');
 ---
 
