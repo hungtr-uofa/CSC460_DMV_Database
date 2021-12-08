@@ -1,0 +1,104 @@
+// run using dbml2sql @dbml/core to generate sql
+// use sqlserver
+
+// identities
+table web2identity {
+  identity_id integer [pk]
+  emailAddress varchar(20) [not null]
+  phoneNumber varchar [not null]
+}
+
+table newAssociate {
+  newA_id integer [pk]
+  firstName varchar [not null]
+  lastName varchar [not null]
+  identity_id integer [ref: > web2identity.identity_id]
+}
+table associate {
+  a_id integer [pk]
+  newA_id integer [ref: < newAssociate.newA_id]
+  dateOfBirth datetime
+  address varchar
+}
+
+tablegroup identity {
+  web2identity
+  newAssociate
+  associate
+}
+
+// enterprise
+table department {
+  dep_id integer [pk]
+  depName varchar [NOT NULL]
+}
+
+table employee {
+  e_id integer [pk]
+  j_id integer [ref: - job.j_id]
+  a_id integer [ref: > associate.a_id]
+  supervisor_e_id integer [ref: < employee.e_id]
+  isFounder integer(1) [default: 0]
+  adminRights integer(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
+  i_id integer [ref: - id.i_id]
+}
+
+table job {
+  j_id integer [pk]
+  jobName str [not null]
+  salary integer [not null]
+  perm_id integer 
+}
+
+table permission {
+  perm_id integer [pk]
+  canRepresent integer(1) [not null, default: false]
+  canProcess integer(1) [not null, default: false]
+}
+
+// products
+// record of all products
+table product {
+  p_id integer [pk, ref: < productConstraints.p_id]
+  productName varchar
+  productPrice integer
+  productExpiry_days integer
+  
+}
+// gives a connection between products and department
+// as well as other constraints
+table productConstraints {
+  p_id integer [pk]
+  dep_id integer [pk, ref: > department.dep_id]
+  perm_id integer [ref: < permission.perm_id]
+  maxPerPerson integer [note: 'if null, infinity. This is useful for license, permit, id limited to 1 person']
+}
+
+// the actual ID associated with the user.
+// this is the certificate that a user is issued a product
+table id {
+  i_id integer [pk]
+  apOK_id integer [ref: - okAppointment.apOK_id]
+  revoked datetime [default: NULL, note: 'if null, not revoked yet']
+}
+
+table vehicleID {
+  v_id integer [pk]
+  i_id integer [ref: - id.i_id, note: 'vehicleID extends id']
+}
+
+// ledger
+// appointment that is scheduled
+table appointment {
+  ap_id integer [pk]
+  customer_newA_id integer [ref: - newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
+  repEmployee_e_id integer [ref: - employee.e_id, note: 'e_id of the representative']
+  p_id integer [ref: - product.p_id]
+  appointegermentDate datetime [note: 'when appointegerment was scheduled to be']
+}
+
+table okAppointment {
+  apOK_id integer [pk]
+  ap_id integer [ref: - appointment.ap_id]
+  i_id integer 
+}
