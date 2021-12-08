@@ -98,7 +98,7 @@ table mvd_appointment {
   customer_newA_id integer [ref: - mvd_newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
   repEmployee_e_id integer [ref: - mvd_employee.e_id, note: 'e_id of the representative']
   p_id integer [ref: - mvd_product.p_id]
-  appointmentDate timestamp [default: SYS_EXTRACT_UTC(SYSTIMESTAMP), note: 'when mvd_appointment was scheduled to be']
+  appointmentDate timestamp [note: 'when mvd_appointment was scheduled to be']
 }
 
 table mvd_okappointment {
