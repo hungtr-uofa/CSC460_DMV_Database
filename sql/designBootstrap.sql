@@ -16,7 +16,7 @@
 --- First order of business is the concept of a root into permission
 --- 0 is now the absolute permission
 INSERT INTO "mvd_permission"
-VALUES(0, 1, 1);
+VALUES(0, 1, 1, 1, 0); -- not founder, but is admin
 
 --- Adding the records
 --- Department
@@ -38,7 +38,7 @@ INSERT INTO "mvd_newAssociate" VALUES
 (0, "root", "root", 0);
 
 INSERT INTO "mvd_associate" VALUES
-(0, 0);
+(0, 0, null, null);
 
 -- To get root to be an employee, we need an id
 -- the only way to get an id is via okappointment
