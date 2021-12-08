@@ -1,0 +1,1 @@
+dbml2sql design.dbml >design.sql & py designSeparator.py
