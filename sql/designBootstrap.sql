@@ -7,6 +7,17 @@
 -- can have many employee cards, each employee belongs to
 -- a single department
 
+--- Inject time/date defaults (impossible in dbml)
+-- Default for appointment date is time now
+ALTER TABLE "mvd_appointment" MODIFY appointmentDate
+DEFAULT SYS_EXTRACT_UTC(SYSTIMESTAMP);
+
+ALTER TABLE "mvd_okappointment" MODIFY processedDate
+DEFAULT (SELECT appt.appointmentDate FROM
+ "mvd_okappointment" as okappt INNER JOIN "mvd_appointment" as appt
+ ON okappt.ap_id=appt.ap_id
+);
+
 ---- CONSTRAINTS ----
 --- Only an HR with adminRights may PROCESS an employee
 -- card with adminRights
@@ -65,11 +76,20 @@ INTO "mvd_product" VALUES (1, 'License Registration', 25, 4383, 1)    -- $25, 12
 INTO "mvd_product" VALUES (2, 'Permit Registration', 7, 365, null)    -- $7, 1yr
 INTO "mvd_product" VALUES (3, 'Vehicle Registration', 100, 365, null) -- $100, 1yr
 INTO "mvd_product" VALUES (4, 'State ID Registration', 12, 7305, 1)   -- $12, 20yr
+SELECT * FROM dual;
+
+INSERT ALL
 -- constraints
 INTO "mvd_productConstraints" VALUES (0, 4, 0) -- boot: ID:0, Dept:HR, Perm: admin
 -- boot appointment
 INTO "mvd_appointment" VALUES(0, 0, 0, 0, TIMESTAMP '1800-01-01 23:59:59.10')
-INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DEFAULT)
+SELECT * FROM dual;
+
+--- this line is weird
+INSERT INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DEFAULT);
+---
+
+INSERT ALL
 INTO "mvd_employee" VALUES (0, 0, 0, null, 0, DEFAULT)
 INTO "mvd_id" VALUES (0,0, DEFAULT)
 SELECT * FROM dual;
