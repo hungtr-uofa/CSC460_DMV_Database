@@ -20,12 +20,13 @@ INSERT INTO "mvd_permission" VALUES
 
 --- Adding the records
 --- Department
-INSERT INTO "mvd_department" VALUES
-(0, 'License'),
-(1, 'Permit'),
-(2, 'Vehicle Registration'),
-(3, 'State ID'),
-(4, 'Human Resource');
+INSERT ALL
+INTO "mvd_department" VALUES (0, 'License')
+INTO "mvd_department" VALUES (1, 'Permit')
+INTO "mvd_department" VALUES (2, 'Vehicle Registration')
+INTO "mvd_department" VALUES (3, 'State ID')
+INTO "mvd_department" VALUES (4, 'Human Resource')
+SELECT * FROM dual;
 
 --- The ultimate hiring person: the root
 -- with the root, we can employ others at will.
