@@ -14,7 +14,7 @@ table mvd_newAssociate {
   newA_id integer [pk]
   firstName varchar2(20) [not null]
   lastName varchar2(20) [not null]
-  identity_id integer [ref: > mvd_web2identity.identity_id]
+  identity_id integer [ref: - mvd_web2identity.identity_id]
 }
 table mvd_associate {
   a_id integer [pk]
