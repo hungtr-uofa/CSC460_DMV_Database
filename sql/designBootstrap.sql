@@ -13,10 +13,23 @@ ALTER TABLE "mvd_appointment" MODIFY "appointmentDate"
 DEFAULT SYS_EXTRACT_UTC(SYSTIMESTAMP);
 
 ALTER TABLE "mvd_okappointment" MODIFY "processedDate"
-DEFAULT (SELECT appt.appointmentDate FROM
- "mvd_okappointment" as okappt INNER JOIN "mvd_appointment" as appt
- ON okappt.ap_id=appt.ap_id
-);
+DEFAULT NULL;
+
+CREATE OR REPLACE TRIGGER defDataOKAppointment BEFORE INSERT ON "mvd_okappointment"
+FOR EACH ROW
+BEGIN
+    SELECT * INTO :NEW."processedDate" FROM CASE WHEN :NEW."processedDate" IS NULL
+    THEN (
+        SELECT trunc("appointmentDate") FROM -- cast timestamp to date
+        -- retrieve it from appointmentDate same ap_id
+        "mvd_appointment" as appt
+        INNER JOIN
+        "mvd_okappointment" as okappt
+        ON appt.ap_id = okappt.ap_id
+
+    ) ELSE :NEW."processedDate"
+END;
+/
 
 ---- CONSTRAINTS ----
 --- Only an HR with adminRights may PROCESS an employee
