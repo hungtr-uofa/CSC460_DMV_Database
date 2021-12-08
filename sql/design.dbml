@@ -39,7 +39,7 @@ table mvd_employee {
   e_id integer [pk]
   j_id integer [ref: - mvd_job.j_id]
   a_id integer [ref: > mvd_associate.a_id]
-  supervisor_e_id integer [ref: < mvd_employee.e_id]
+  supervisor_e_id integer [ref: > mvd_employee.e_id]
   isFounder number(1) [default: 0]
   adminRights number(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
   i_id integer [ref: - mvd_id.i_id]

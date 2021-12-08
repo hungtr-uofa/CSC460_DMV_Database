@@ -94,7 +94,7 @@ ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("j_id") REFERENCES "mvd_job" ("j_id"
 
 ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("a_id") REFERENCES "mvd_associate" ("a_id");
 
-ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("e_id") REFERENCES "mvd_employee" ("supervisor_e_id");
+ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("supervisor_e_id") REFERENCES "mvd_employee" ("e_id");
 
 ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("i_id") REFERENCES "mvd_id" ("i_id");
 
