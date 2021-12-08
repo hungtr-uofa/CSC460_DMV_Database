@@ -5,7 +5,7 @@ BEGIN
         WHERE table_name LIKE 'mvd_%'
     )
   LOOP
-    EXECUTE immediate 'DROP TABLE '||rec.table_name||' CASCADE CONSTRAINTS';
+    EXECUTE immediate 'DROP TABLE "'||rec.table_name||'" CASCADE CONSTRAINTS';
   END LOOP;
 END;
 /
