@@ -1,56 +1,58 @@
 // run using dbml2sql @dbml/core to generate sql
 // use postgres
-
+Project MVD {
+    database_type: 'PostgreSQL'
+}
 // identities
-table web2identity {
+table mvd_web2identity {
   identity_id integer [pk]
   emailAddress varchar2(40) [not null]
   phoneNumber varchar2(15) [not null]
 }
 
-table newAssociate {
+table mvd_newAssociate {
   newA_id integer [pk]
   firstName varchar2(20) [not null]
   lastName varchar2(20) [not null]
-  identity_id integer [ref: > web2identity.identity_id]
+  identity_id integer [ref: > mvd_web2identity.identity_id]
 }
-table associate {
+table mvd_associate {
   a_id integer [pk]
-  newA_id integer [ref: < newAssociate.newA_id]
+  newA_id integer [ref: < mvd_newAssociate.newA_id]
   dateOfBirth date
   address varchar2(80) [note: 'might want to create an index for addresses in the future']
 }
 
 tablegroup identity {
-  web2identity
-  newAssociate
-  associate
+  mvd_web2identity
+  mvd_newAssociate
+  mvd_associate
 }
 
 // enterprise
-table department {
+table mvd_department {
   dep_id integer [pk]
   depName varchar2(80) [NOT NULL]
 }
 
-table employee {
+table mvd_employee {
   e_id integer [pk]
-  j_id integer [ref: - job.j_id]
-  a_id integer [ref: > associate.a_id]
-  supervisor_e_id integer [ref: < employee.e_id]
+  j_id integer [ref: - mvd_job.j_id]
+  a_id integer [ref: > mvd_associate.a_id]
+  supervisor_e_id integer [ref: < mvd_employee.e_id]
   isFounder number(1) [default: 0]
   adminRights number(1) [default: 0, note: 'bypasses everything, even the product constraints'] 
-  i_id integer [ref: - id.i_id]
+  i_id integer [ref: - mvd_id.i_id]
 }
 
-table job {
+table mvd_job {
   j_id integer [pk]
   jobName varchar2(32) [not null]
   salary integer [not null]
   perm_id integer 
 }
 
-table permission {
+table mvd_permission {
   perm_id integer [pk]
   canRepresent number(1) [default: 0]
   canProcess number(1) [default: 0]
@@ -58,47 +60,47 @@ table permission {
 
 // products
 // record of all products
-table product {
-  p_id integer [pk, ref: < productConstraints.p_id]
+table mvd_product {
+  p_id integer [pk, ref: < mvd_productConstraints.p_id]
   productName varchar2(40)
   productPrice integer
   productExpiry_days integer
   
 }
-// gives a connection between products and department
+// gives a connection between products and mvd_department
 // as well as other constraints
-table productConstraints {
+table mvd_productConstraints {
   p_id integer [pk]
-  dep_id integer [pk, ref: > department.dep_id]
-  perm_id integer [ref: < permission.perm_id]
+  dep_id integer [pk, ref: > mvd_department.dep_id]
+  perm_id integer [ref: < mvd_permission.perm_id]
   maxPerPerson integer [note: 'if null, infinity. This is useful for license, permit, id limited to 1 person']
 }
 
-// the actual ID associated with the user.
+// the actual ID mvd_associated with the user.
 // this is the certificate that a user is issued a product
-table id {
+table mvd_id {
   i_id integer [pk]
-  apOK_id integer [ref: - okAppointment.apOK_id]
+  apOK_id integer [ref: - mvd_okappointment.apOK_id]
   revoked date [default: NULL, note: 'if null, not revoked yet']
 }
 
-table vehicleID {
+table mvd_vehicleID {
   v_id integer [pk]
-  i_id integer [ref: - id.i_id, note: 'vehicleID extends id']
+  i_id integer [ref: - mvd_id.i_id, note: 'vehicleID extends id']
 }
 
 // ledger
-// appointment that is scheduled
-table appointment {
+// mvd_appointment that is scheduled
+table mvd_appointment {
   ap_id integer [pk]
-  customer_newA_id integer [ref: - newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
-  repEmployee_e_id integer [ref: - employee.e_id, note: 'e_id of the representative']
-  p_id integer [ref: - product.p_id]
-  appointmentDate date [note: 'when appointment was scheduled to be']
+  customer_newA_id integer [ref: - mvd_newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
+  repEmployee_e_id integer [ref: - mvd_employee.e_id, note: 'e_id of the representative']
+  p_id integer [ref: - mvd_product.p_id]
+  appointmentDate date [note: 'when mvd_appointment was scheduled to be']
 }
 
-table okAppointment {
+table mvd_okappointment {
   apOK_id integer [pk]
-  ap_id integer [ref: - appointment.ap_id]
+  ap_id integer [ref: - mvd_appointment.ap_id]
   i_id integer 
 }
