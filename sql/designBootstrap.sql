@@ -15,8 +15,8 @@
 
 --- First order of business is the concept of a root into permission
 --- 0 is now the absolute permission
-INSERT INTO "mvd_permission"
-VALUES(0, 1, 1, 1, 0); -- not founder, but is admin
+INSERT INTO "mvd_permission" VALUES
+(0, 1, 1, 1, 0); -- not founder, but is admin
 
 --- Adding the records
 --- Department
