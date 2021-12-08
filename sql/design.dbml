@@ -45,7 +45,7 @@ table employee {
 
 table job {
   j_id integer [pk]
-  jobName str [not null]
+  jobName varchar2(32) [not null]
   salary integer [not null]
   perm_id integer 
 }

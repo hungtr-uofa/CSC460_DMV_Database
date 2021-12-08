@@ -35,7 +35,7 @@ CREATE TABLE "employee" (
 
 CREATE TABLE "job" (
   "j_id" integer PRIMARY KEY,
-  "jobName" str NOT NULL,
+  "jobName" varchar2(32) NOT NULL,
   "salary" integer NOT NULL,
   "perm_id" integer
 );
