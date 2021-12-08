@@ -1,5 +1,5 @@
 // run using dbml2sql @dbml/core to generate sql
-// use sqlserver
+// use mysql
 
 // identities
 table web2identity {
