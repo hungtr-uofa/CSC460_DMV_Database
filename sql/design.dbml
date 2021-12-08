@@ -1,24 +1,24 @@
 // run using dbml2sql @dbml/core to generate sql
-// use mysql
+// use postgres
 
 // identities
 table web2identity {
   identity_id integer [pk]
-  emailAddress varchar(20) [not null]
-  phoneNumber varchar [not null]
+  emailAddress varchar(40) [not null]
+  phoneNumber varchar(15) [not null]
 }
 
 table newAssociate {
   newA_id integer [pk]
-  firstName varchar [not null]
-  lastName varchar [not null]
+  firstName varchar(20) [not null]
+  lastName varchar(20) [not null]
   identity_id integer [ref: > web2identity.identity_id]
 }
 table associate {
   a_id integer [pk]
   newA_id integer [ref: < newAssociate.newA_id]
   dateOfBirth datetime
-  address varchar
+  address varchar(80) [note: 'might want to create an index for addresses in the future']
 }
 
 tablegroup identity {
@@ -30,7 +30,7 @@ tablegroup identity {
 // enterprise
 table department {
   dep_id integer [pk]
-  depName varchar [NOT NULL]
+  depName varchar(80) [NOT NULL]
 }
 
 table employee {
@@ -60,7 +60,7 @@ table permission {
 // record of all products
 table product {
   p_id integer [pk, ref: < productConstraints.p_id]
-  productName varchar
+  productName varchar(40)
   productPrice integer
   productExpiry_days integer
   
