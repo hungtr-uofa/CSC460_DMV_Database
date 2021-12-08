@@ -6,5 +6,6 @@ BEGIN
     )
   LOOP
     EXECUTE immediate "DROP TABLE "||rec.table_name||" CASCADE CONSTRAINTS";
-  END LOOP
+  END LOOP;
 END;
+/
