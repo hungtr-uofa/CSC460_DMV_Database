@@ -18,7 +18,7 @@ table mvd_newAssociate {
 }
 table mvd_associate {
   a_id integer [pk]
-  newA_id integer [ref: < mvd_newAssociate.newA_id]
+  newA_id integer [ref: - mvd_newAssociate.newA_id]
   dateOfBirth date
   address varchar2(80) [note: 'might want to create an index for addresses in the future']
 }

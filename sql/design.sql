@@ -89,7 +89,7 @@ CREATE TABLE "mvd_okappointment" (
 
 ALTER TABLE "mvd_newAssociate" ADD FOREIGN KEY ("identity_id") REFERENCES "mvd_web2identity" ("identity_id");
 
-ALTER TABLE "mvd_newAssociate" ADD FOREIGN KEY ("newA_id") REFERENCES "mvd_associate" ("newA_id");
+ALTER TABLE "mvd_associate" ADD FOREIGN KEY ("newA_id") REFERENCES "mvd_newAssociate" ("newA_id");
 
 ALTER TABLE "mvd_employee" ADD FOREIGN KEY ("j_id") REFERENCES "mvd_job" ("j_id");
 
