@@ -15,22 +15,6 @@ DEFAULT SYS_EXTRACT_UTC(SYSTIMESTAMP);
 ALTER TABLE "mvd_okappointment" MODIFY "processedDate"
 DEFAULT NULL;
 
-CREATE OR REPLACE TRIGGER defDataOKAppointment BEFORE INSERT ON "mvd_okappointment"
-FOR EACH ROW
-BEGIN
-    SELECT * INTO :NEW."processedDate" FROM CASE WHEN :NEW."processedDate" IS NULL
-    THEN (
-        SELECT trunc("appointmentDate") FROM -- cast timestamp to date
-        -- retrieve it from appointmentDate same ap_id
-        "mvd_appointment" as appt
-        INNER JOIN
-        "mvd_okappointment" as okappt
-        ON appt.ap_id = okappt.ap_id
-
-    ) ELSE :NEW."processedDate"
-END;
-/
-
 ---- CONSTRAINTS ----
 --- Only an HR with adminRights may PROCESS an employee
 -- card with adminRights
@@ -99,7 +83,7 @@ INTO "mvd_appointment" VALUES(0, 0, 0, 0, TIMESTAMP '1800-01-01 23:59:59.10')
 SELECT * FROM dual;
 
 --- this line is weird
-INSERT INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DEFAULT);
+INSERT INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DATE '1800-01-02');
 ---
 
 INSERT ALL
