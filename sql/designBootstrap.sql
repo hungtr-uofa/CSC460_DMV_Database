@@ -67,9 +67,6 @@ INSERT INTO "mvd_associate" VALUES
 -- at the bootstrap step, we are not enforcing anything about
 -- the hiring permissions, so we could theoretically appoint ourselves?
 
--- job listing
-INSERT INTO "mvd_job" VALUES (0, 'root', 0, 0, 4); -- id:0, jobname:root, salary:0, perm_id:0 (admin/root), dep_id: 4(HR)
-
 INSERT ALL
 -- products
 INTO "mvd_product" VALUES (0, 'Admin Hiring', 0, 100000, null)    -- bootstrap
@@ -94,3 +91,7 @@ INSERT ALL
 INTO "mvd_employee" VALUES (0, 0, 0, null, 0, DEFAULT)
 INTO "mvd_id" VALUES (0,0, DEFAULT)
 SELECT * FROM dual;
+
+
+-- job listing
+INSERT INTO "mvd_job" VALUES (0, 'root', 0, 0, 4); -- id:0, jobname:root, salary:0, perm_id:0 (admin/root), dep_id: 4(HR)
