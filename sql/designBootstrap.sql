@@ -7,16 +7,28 @@
 -- can have many employee cards, each employee belongs to
 -- a single department
 
----- Some constraints that we have to manually take care of
---- Only an HR with adminRights may PROCESS an employee card with adminRights
+---- CONSTRAINTS ----
+--- Only an HR with adminRights may PROCESS an employee
+-- card with adminRights
+--- Ensure maxPerPerson in mvd_product is respected
+--- Appointment for a single person (customer or employee)
+-- may not overlap in time
+---------------------
+
 
 --- First, we will insert roots for each department to bootstrap
 -- the hiring process.
 
 --- First order of business is the concept of a root into permission
 --- 0 is now the absolute permission
-INSERT INTO "mvd_permission" VALUES
-(0, 1, 1, 1, 0); -- not founder, but is admin
+INSERT ALL
+INTO "mvd_permission" VALUES
+(0, 1, 1, 1, 0) -- not founder, but is admin, this is for root and other admins
+INTO "mvd_permission" VALUES
+(1, 1, 1, 1, 1) -- founder perm
+INTO "mvd_permission" VALUES
+(2, 1, 1, 0, 0) -- flexible worker
+SELECT * FROM dual;
 
 --- Adding the records
 --- Department
@@ -46,3 +58,18 @@ INSERT INTO "mvd_associate" VALUES
 -- we need to first set up appointment for it to be ok, though
 -- at the bootstrap step, we are not enforcing anything about
 -- the hiring permissions, so we could theoretically appoint ourselves?
+INSERT ALL
+-- products
+INTO "mvd_product" VALUES (0, 'Admin Hiring', 0, 2147483646, null) -- bootstrap
+INTO "mvd_product" VALUES (1, 'License Registration', 25, 4383, 1) -- $25, 12yr exp
+INTO "mvd_product" VALUES (2, 'Permit Registration', 7, 365, null) -- $7, 1yr
+INTO "mvd_product" VALUES (3, 'Vehicle Registration', 100, 365)    -- $100, 1yr
+INTO "mvd_product" VALUES (4, 'State ID Registration', 12, 7305, 1)-- $12, 20yr
+-- constraints
+INTO "mvd_productConstraints" VALUES (0, 4, 0) -- boot: ID:0, Dept:HR, Perm: admin
+-- boot appointment
+INTO "mvd_appointment" VALUES(0, 0, 0, 0, DEFAULT)
+INTO "mvd_okappointment" VALUES(0, 0, 0, 0, DEFAULT)
+INTO "mvd_employee" VALUES (0, 0, 0, null, 0, DEFAULT)
+INTO "mvd_id" VALUES (0,0, DEFAULT)
+SELECT * FROM dual;

@@ -39,7 +39,7 @@ table mvd_employee {
   e_id integer [pk]
   j_id integer [ref: > mvd_job.j_id]
   a_id integer [ref: > mvd_associate.a_id]
-  supervisor_e_id integer [ref: > mvd_employee.e_id]
+  supervisor_e_id integer [ref: > mvd_employee.e_id, note: 'if fk nullable, use null for no supervisor; otherwise, use self.']
   i_id integer [ref: - mvd_id.i_id]
   salaryIncrease integer [default: 0]
 }
@@ -67,6 +67,7 @@ table mvd_product {
   productName varchar2(40)
   productPrice integer
   productExpiry_days integer
+  maxPerPerson integer [note: 'if null, infinity. This is useful for license, permit, id limited to 1 person']
   
 }
 // gives a connection between products and mvd_department
@@ -74,8 +75,7 @@ table mvd_product {
 table mvd_productConstraints {
   p_id integer [pk, ref: > mvd_product.p_id]
   dep_id integer [pk, ref: > mvd_department.dep_id]
-  perm_id integer [ref: > mvd_permission.perm_id]
-  maxPerPerson integer [note: 'if null, infinity. This is useful for license, permit, id limited to 1 person']
+  perm_id integer [ref: > mvd_permission.perm_id, note: 'the canRepresent and canProcess is bitmask and; adminRights or isFounder requires processor to be adminRights and isFounder.']
 }
 
 // the actual ID mvd_associated with the user.
@@ -98,11 +98,13 @@ table mvd_appointment {
   customer_newA_id integer [ref: - mvd_newAssociate.newA_id, note: 'newA_id of potential customer who scheduled appt']
   repEmployee_e_id integer [ref: - mvd_employee.e_id, note: 'e_id of the representative']
   p_id integer [ref: - mvd_product.p_id]
-  appointmentDate date [note: 'when mvd_appointment was scheduled to be']
+  appointmentDate timestamp [default: SYS_EXTRACT_UTC(SYSTIMESTAMP), note: 'when mvd_appointment was scheduled to be']
 }
 
 table mvd_okappointment {
   apOK_id integer [pk]
   ap_id integer [ref: - mvd_appointment.ap_id]
+  processEmp_e_id integer [ref: - mvd_employee.e_id, note: 'e_id of a processor']
   i_id integer 
+  processedDate date [default: null, note: 'when the appointment is processed, null is the same as appointmentDate']
 }
