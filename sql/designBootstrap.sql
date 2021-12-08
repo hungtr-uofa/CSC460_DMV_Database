@@ -60,7 +60,7 @@ INSERT INTO "mvd_associate" VALUES
 -- the hiring permissions, so we could theoretically appoint ourselves?
 INSERT ALL
 -- products
-INTO "mvd_product" VALUES (0, 'Admin Hiring', 0, 2147483646, null)    -- bootstrap
+INTO "mvd_product" VALUES (0, 'Admin Hiring', 0, 100000, null)    -- bootstrap
 INTO "mvd_product" VALUES (1, 'License Registration', 25, 4383, 1)    -- $25, 12yr exp
 INTO "mvd_product" VALUES (2, 'Permit Registration', 7, 365, null)    -- $7, 1yr
 INTO "mvd_product" VALUES (3, 'Vehicle Registration', 100, 365, null) -- $100, 1yr
